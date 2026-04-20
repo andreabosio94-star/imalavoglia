@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#071018" />
+  <meta name="description" content="I Malavoglia C5 – App gestione squadra calcio a 5" />
+  <title>I Malavoglia C5 Manager</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- TOP BAR (desktop + tablet) -->
+  <div id="authScreen" class="auth-screen">
+    <div class="auth-shell">
+      <article class="card light-card auth-card">
+        <img src="assets/logo.png" alt="Logo I Malavoglia" class="auth-logo" />
+        <div class="auth-copy">
+          <span class="auth-kicker">Accesso account</span>
+          <h2>I Malavoglia C5</h2>
+                  </div>
+        <form id="loginForm" class="player-form auth-form">
+          <div class="grid two">
+            <label>Nome<input id="loginFirstName" type="text" required autocomplete="given-name" autocapitalize="words" spellcheck="false" /></label>
+            <label>Cognome<input id="loginLastName" type="text" required autocomplete="family-name" autocapitalize="words" spellcheck="false" /></label>
+          </div>
+          <label>Password<input id="loginPassword" type="password" required autocomplete="current-password" autocapitalize="off" spellcheck="false" placeholder="Inserisci password" /></label>
+          <div class="auth-actions-row">
+            <button type="submit" class="btn primary">Entra</button>
+          </div>
+          <p id="loginMessage" class="auth-note">Password iniziale predefinita: <strong>malavoglia</strong>.</p>
+        </form>
+      </article>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div id="accountSummary" class="account-summary hidden" aria-label="Account corrente">
+      <div class="account-chip">
+        <strong id="accountNameLabel">--</strong>
+        <span id="accountRoleLabel">--</span>
+      </div>
+    </div>
+    <div class="topbar-center">
+      <div class="top-clock" id="liveDateTime">--</div>
+    </div>
+    <div class="topbar-right">
+      <div id="topMenuWrap" class="topbar-menu hidden">
+        <button id="topMenuBtn" class="top-menu-btn" type="button" aria-label="Apri menu" aria-haspopup="true" aria-expanded="false">
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <circle cx="12" cy="5" r="2"></circle>
+            <circle cx="12" cy="12" r="2"></circle>
+            <circle cx="12" cy="19" r="2"></circle>
+          </svg>
+        </button>
+        <div id="topMenuDropdown" class="top-menu-dropdown hidden" role="menu" aria-label="Menu account">
+          <button class="top-menu-item" type="button" data-top-menu-action="home" role="menuitem">Home</button>
+          <button class="top-menu-item" type="button" data-top-menu-action="password" role="menuitem">Password</button>
+          <button class="top-menu-item danger" type="button" data-top-menu-action="logout" role="menuitem">Logout</button>
+        </div>
+      </div>
+    </div>
+    <nav class="main-nav hidden" role="navigation" aria-label="Menu principale"></nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home" class="page active">
+      <div class="home-layout">
+        <article class="card light-card home-logo-card">
+          <img src="assets/home-logo-malavoglia.png" alt="Logo I Malavoglia" class="hero-logo home-custom-logo" />
+          <div class="hero-links vertical">
+            <a class="btn link-btn dark-link-btn instagram-link-btn" href="https://www.instagram.com/malavoglia_c5/" target="_blank" rel="noopener noreferrer" data-instagram-handle="malavoglia_c5" data-instagram-url="https://www.instagram.com/malavoglia_c5/">
+              <span class="instagram-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="instagramGradientIcon" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#feda75"></stop>
+                      <stop offset="30%" stop-color="#fa7e1e"></stop>
+                      <stop offset="55%" stop-color="#d62976"></stop>
+                      <stop offset="78%" stop-color="#962fbf"></stop>
+                      <stop offset="100%" stop-color="#4f5bd5"></stop>
+                    </linearGradient>
+                  </defs>
+                  <path fill="url(#instagramGradientIcon)" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm5 2.3A5.5 5.5 0 1 1 6.5 12 5.5 5.5 0 0 1 12 6.5Zm0 2.2A3.3 3.3 0 1 0 15.3 12 3.3 3.3 0 0 0 12 8.7Zm5.9-3.35a1.3 1.3 0 1 1-1.3 1.3 1.3 1.3 0 0 1 1.3-1.3Z"></path>
+                </svg>
+              </span>
+              <span>@malavoglia_C5</span>
+            </a>
+            <a class="btn link-btn dark-link-btn" href="https://www.noisportverona.it/risultati-campionato-di-calcio-a-5-m_CM20250000005" target="_blank" rel="noopener noreferrer">
+              <span>🌐</span> NOI Sport Verona
+            </a>
+            <a class="btn link-btn dark-link-btn youtube-link-btn" href="https://www.youtube.com/playlist?list=PLyi_ixJq8baXKijbCpYhu-fbeon0Y8I35" target="_blank" rel="noopener noreferrer">
+              <span class="youtube-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.7V8.3l6.3 3.7-6.3 3.7Z"/>
+                </svg>
+              </span>
+              <span>@imalavogliac5</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="card light-card home-info-card home-notices-panel" id="homeNoticesCard">
+          <div class="section-title-row"><h3>Bacheca Avvisi/Sondaggi</h3></div>
+          <div id="homeNoticesBox" class="empty-state">Nessun avviso disponibile.</div>
+        </article>
+
+        <div class="home-panels-grid">
+          <article class="card light-card home-info-card position-card clickable-home-card" id="homeStandingsCard">
+            <div id="homeStandingBox"></div>
+          </article>
+
+          <article class="card light-card home-info-card clickable-home-card home-match-panel" id="homeLastMatchCard" data-home-target="last">
+            <div class="section-title-row"><h3>Ultima partita</h3></div>
+            <div id="lastMatchBox" class="empty-state">Nessuna partita giocata.</div>
+          </article>
+
+          <article class="card light-card home-info-card clickable-home-card home-match-panel" id="homeNextMatchCard" data-home-target="next">
+            <div class="section-title-row"><h3>Prossima partita</h3></div>
+            <div id="nextMatchBox" class="empty-state">Nessuna prossima partita.</div>
+          </article>
+
+          <article class="card light-card home-info-card weather-card">
+            <div id="weatherBox" class="empty-state">Meteo non disponibile.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTITE -->
+    <section id="partite" class="page">
+      <div class="section-header-row partite-header-sticky">
+        <h2>Partite</h2>
+        <div class="partite-actions-fixed-top">
+          <div class="partite-actions-row">
+            <button id="refreshResultsBtn" class="btn primary" type="button"><span class="action-btn-emoji" aria-hidden="true">📃</span><span class="action-btn-label">TXT</span></button>
+            <input id="resultsTxtInput" type="file" accept=".txt,text/plain" class="hidden" />
+            <button id="toggleMatchFiltersBtn" class="btn ghost" type="button" aria-expanded="false" aria-controls="matchesFiltersPanel"><span class="action-btn-emoji" aria-hidden="true">🔎</span><span class="action-btn-label">Filtri</span></button>
+            <a id="partiteStandingsLink" class="btn ghost" href="#classifiche"><span class="action-btn-emoji" aria-hidden="true">🏆</span><span class="action-btn-label">Classifica</span></a>
+          </div>
+          <span id="resultsSyncNote" class="sync-note"></span>
+        </div>
+      </div>
+
+      <div id="matchesFiltersPanel" class="card light-card controls-bar compact-bar hidden">
+        <label>
+          <span class="filter-label">Stagione</span>
+          <select id="seasonFilterMatches" data-season-filter aria-label="Filtra partite per stagione"></select>
+        </label>
+        <label>
+          <span class="filter-label">Squadra</span>
+          <select id="matchTeamFilter"></select>
+        </label>
+        <label>
+          <span class="filter-label">Fase</span>
+          <select id="phaseFilter">
+            <option value="all">Tutte</option>
+            <option value="Andata">Andata</option>
+            <option value="Ritorno">Ritorno</option>
+          </select>
+        </label>
+        <label>
+          <span class="filter-label">Giornata</span>
+          <select id="roundFilter">
+            <option value="all">Tutte</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="matchesList" class="matches-groups"></div>
+    </section>
+
+    <!-- SONDAGGI -->
+    <section id="sondaggi" class="page">
+      <div class="section-header-row">
+        <h2 id="pollsSectionTitle">Sondaggi</h2>
+      </div>
+      <!-- File input persistente per le immagini dei sondaggi -->
+      <input id="globalPollImageInput" type="file" accept="image/*" style="display: none;" />
+      <div id="pollsContent" class="polls-layout"></div>
+    </section>
+
+    <!-- CLASSIFICHE -->
+    <section id="classifiche" class="page">
+      <div class="section-header-row">
+        <h2>Classifiche</h2>
+      </div>
+
+      <article class="card light-card partite-standings-shell">
+        <div class="section-header-row standings-topbar partite-standings-topbar">
+          
+          <div class="standings-tools">
+            <label class="season-filter-inline">
+              <span>Stagione</span>
+              <select id="seasonFilterStandings" data-season-filter aria-label="Filtra classifiche per stagione"></select>
+            </label>
+            <div class="standings-switch" role="tablist" aria-label="Selezione classifiche">
+              <div class="standings-sort-menu">
+                <button id="standingsSortBtn" class="btn small ghost" type="button" aria-haspopup="true" aria-expanded="false">Ordina</button>
+                <div id="standingsSortDropdown" class="standings-sort-dropdown hidden">
+                  <button type="button" class="standings-sort-item active" data-standings-sort="points">Punti (PT)</button>
+                  <button type="button" class="standings-sort-item" data-standings-sort="team">Ordine alfabetico</button>
+                  <button type="button" class="standings-sort-item" data-standings-sort="won">Vittorie (V)</button>
+                  <button type="button" class="standings-sort-item" data-standings-sort="draw">Pareggi (N)</button>
+                  <button type="button" class="standings-sort-item" data-standings-sort="lost">Sconfitte (P)</button>
+                  <button type="button" class="standings-sort-item" data-standings-sort="gf">Goal Fatti (GF)</button>
+                  <button type="button" class="standings-sort-item" data-standings-sort="gs">Goal Subiti (GS)</button>
+                  <button type="button" class="standings-sort-item" data-standings-sort="diff">Differenza Reti (DR)</button>
+                  <button type="button" class="standings-sort-item" data-standings-sort="cards">Punti Cartellini (PC)</button>
+                </div>
+              </div>
+              <button id="standingsTeamsBtn" class="btn small secondary active" type="button">🛡️ Squadre</button>
+              <button id="standingsScorersBtn" class="btn small ghost" type="button">👟 Marcatori</button>
+            </div>
+            <div class="standings-side-actions">
+              <button id="openPenaltyModalBtn" class="btn small ghost hidden" type="button">➕ Penalità</button>
+              <button id="toggleStandingsExpandBtn" class="btn small ghost" type="button" aria-expanded="false">↔️ Estendi</button>
+            </div>
+          </div>
+        </div>
+
+        <article id="teamsStandingsCard" class="partite-standings-card">
+          <div class="table-header hidden">
+            <h3 id="teamsStandingsTitle"></h3>
+          </div>
+          <div id="teamsStandingsWrap" class="table-wrap">
+            <table id="teamsStandingsTable" class="teams-standings-table is-compact">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Squadra</th>
+                  <th title="Punti">Pt</th>
+                  <th title="Partite Giocate">PG</th>
+                  <th title="Vittorie">V</th>
+                  <th title="Pareggi">N</th>
+                  <th title="Sconfitte">P</th>
+                  <th title="Gol Fatti">GF</th>
+                  <th title="Gol Subiti">GS</th>
+                  <th title="Differenza Reti">DR</th>
+                  <th title="Punti Cartellini">PC</th>
+                </tr>
+              </thead>
+              <tbody id="standingsBody"></tbody>
+            </table>
+          </div>
+          <p class="standings-penalty-legend">✱ (-2 punti)</p>
+          <p class="standings-stats-legend">(PT) Punti, (PG) Partite Giocate, (V) Vittorie, (N) Pareggi, (P) Sconfitte, (GF) Goal Fatti, (GS) Goal Subiti, (DR) Differenza Reti, (PC) Punti Cartellini "Fair play"</p>
+        </article>
+
+        <article id="scorersStandingsCard" class="partite-standings-card hidden">
+          <h3 id="scorersStandingsTitle" class="hidden"></h3>
+          <div class="table-wrap scorers-table-wrap">
+            <table class="scorers-compact-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Giocatore</th>
+                  <th>GOAL</th>
+                  <th>Cartellini</th>
+                </tr>
+              </thead>
+              <tbody id="scorersBody"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <div class="season-actions">
+          <button id="editCompetitionBtn" class="btn secondary small hidden" type="button">✏️ Modifica</button>
+          <button id="editCompetitionTeamsBtn" class="btn secondary small hidden" type="button">✏️ Squadre</button>
+          <button id="addSeasonBtn" class="btn ghost small hidden" type="button" aria-label="Inserisci Competizione">+</button>
+          <button id="deleteSeasonBtn" class="btn danger small hidden" type="button">🗑️ Elimina Competizione</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- PROFILO -->
+    <section id="profilo" class="page">
+      <div class="section-header-row">
+        <h2>Profilo</h2>
+      </div>
+      <div id="profileContent"></div>
+    </section>
+
+    <!-- ROSA -->
+    <section id="rosa" class="page">
+      <div class="staff-grid" id="staffGrid"></div>
+
+      <div class="section-header-row">
+        <h2>Rosa</h2>
+        <button id="togglePlayerForm" class="btn primary">➕ Nuovo giocatore</button>
+      </div>
+
+      <div id="playerFormWrap" class="card light-card hidden">
+        <form id="playerForm" class="player-form">
+          <input type="hidden" id="playerId" />
+          <div class="grid two">
+            <label>Nome<input id="playerName" type="text" required placeholder="Es. Leonardo" /></label>
+            <label>Cognome<input id="playerSurname" type="text" required placeholder="Es. Rossi" /></label>
+          </div>
+          <div class="grid three">
+            <label>N° Maglia<input id="playerNumber" type="text" placeholder="Es. 7" /></label>
+            <label>Telefono<input id="playerPhone" type="tel" placeholder="Es. 347…" /></label>
+            <label>Stato
+              <select id="playerStatus">
+                <option value="active">Attivo</option>
+                <option value="retired">Ritirato</option>
+              </select>
+            </label>
+          </div>
+          <label>Foto profilo<input id="playerPhoto" type="file" accept="image/*" /></label>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">💾 Salva</button>
+            <button type="button" id="cancelPlayerEdit" class="btn ghost">Annulla</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="rosterGrid" class="roster-grid"></div>
+    </section>
+  </main>
+
+  <!-- BOTTOM NAVIGATION (solo mobile) -->
+  <nav class="bottom-nav" role="navigation" aria-label="Navigazione principale">
+    <a href="#profilo" class="bottom-nav-item hidden" data-section="profilo" data-profile-nav="true">
+      <span class="bnav-icon">👤</span>
+      <span class="bnav-label">Profilo</span>
+    </a>
+    <a href="#rosa" class="bottom-nav-item" data-section="rosa">
+      <span class="bnav-icon">👥</span>
+      <span class="bnav-label">Rosa</span>
+    </a>
+    <a href="#partite" class="bottom-nav-item" data-section="partite">
+      <span class="bnav-icon">⚽</span>
+      <span class="bnav-label">Partite</span>
+    </a>
+    <a href="#sondaggi" class="bottom-nav-item" data-section="sondaggi">
+      <span class="bnav-icon">�</span>
+      <span class="bnav-label">AVVISI</span>
+    </a>
+  </nav>
+
+  <div id="passwordModal" class="modal-shell hidden" aria-hidden="true">
+    <article class="card light-card modal-card">
+      <h3 class="password-modal-title">Cambia password</h3>
+      <p id="passwordModalText" class="modal-copy hidden"></p>
+      <form id="passwordForm" class="player-form password-form-stack">
+        <label>Nuova password<input id="newPassword" type="password" minlength="4" autocomplete="new-password" placeholder="Almeno 4 caratteri" /></label>
+        <label>Conferma password<input id="confirmPassword" type="password" minlength="4" autocomplete="new-password" placeholder="Ripeti la password" /></label>
+        <div class="form-actions">
+          <button type="button" id="cancelPasswordChange" class="btn ghost">Annulla</button>
+          <button type="submit" class="btn primary">Salva</button>
+        </div>
+      </form>
+    </article>
+  </div>
+
+  <div id="staffModal" class="modal-shell hidden" aria-hidden="true">
+    <article class="card light-card modal-card">
+      <h3 class="password-modal-title">Modifica staff</h3>
+      <p id="staffModalText" class="modal-copy hidden"></p>
+      <form id="staffForm" class="player-form password-form-stack">
+        <input id="staffEditRole" type="hidden" />
+        <label>Ruolo<input id="staffEditRoleLabel" type="text" disabled /></label>
+        <label>Giocatore della Rosa (opzionale)
+          <select id="staffLinkedPlayerId">
+            <option value="">Inserimento libero</option>
+          </select>
+        </label>
+        <p id="staffLinkedPlayerHint" class="modal-inline-note">Se selezioni un giocatore della Rosa, nome, cognome e telefono vengono presi automaticamente dalla scheda giocatore.</p>
+        <label>Nome<input id="staffEditFirstName" type="text" autocomplete="given-name" required /></label>
+        <label>Cognome<input id="staffEditLastName" type="text" autocomplete="family-name" required /></label>
+        <label>Telefono<input id="staffEditPhone" type="tel" autocomplete="tel" /></label>
+        <div class="form-actions">
+          <button type="button" id="cancelStaffBtn" class="btn ghost">Annulla</button>
+          <button type="submit" class="btn primary">Salva</button>
+        </div>
+      </form>
+    </article>
+  </div>
+  <div id="noticeDetailModal" class="modal-shell hidden" aria-hidden="true">
+    <article class="card light-card modal-card notice-detail-modal-card">
+      <div class="notice-detail-head">
+        <h3 id="noticeDetailTitle" class="password-modal-title">Avviso</h3>
+      </div>
+      <div id="noticeDetailBody" class="notice-detail-body"></div>
+      <div class="form-actions notice-detail-actions">
+        <button type="button" id="closeNoticeDetailBtn" class="btn ghost">Chiudi</button>
+        <button type="button" id="deleteNoticeDetailLocalBtn" class="btn ghost hidden">Elimina dal mio account</button>
+        <button type="button" id="deleteNoticeDetailGlobalBtn" class="btn danger hidden">Elimina per tutti</button>
+        <button type="button" id="openNoticeEditBtn" class="btn secondary hidden">Modifica</button>
+        <button type="button" id="republishNoticeBtn" class="btn secondary hidden">Ripubblica</button>
+        <button type="button" id="responseReportBtn" class="btn secondary hidden">Resoconto</button>
+        <button type="button" id="openNoticePollBtn" class="btn primary hidden">Vai al sondaggio</button>
+      </div>
+    </article>
+  </div>
+  <div id="noticeImagePreviewModal" class="modal-shell hidden" aria-hidden="true">
+    <article class="card light-card modal-card notice-image-preview-modal-card">
+      <div class="form-actions notice-detail-actions">
+        <button type="button" id="closeNoticeImagePreviewBtn" class="btn ghost">Chiudi immagine</button>
+      </div>
+      <div class="notice-image-preview-wrap">
+        <img id="noticeImagePreviewTarget" class="notice-image-preview-target" src="" alt="Immagine avviso" />
+      </div>
+    </article>
+  </div>
+
+  <div id="responseReportModal" class="modal-shell hidden" aria-hidden="true">
+    <article class="card light-card modal-card response-report-modal-card">
+      <div class="notice-detail-head">
+        <h3 id="responseReportTitle" class="password-modal-title">Resoconto Risposte</h3>
+      </div>
+      <div id="responseReportBody" class="response-report-body"></div>
+      <div class="form-actions notice-detail-actions">
+        <button type="button" id="closeResponseReportBtn" class="btn ghost">Chiudi</button>
+      </div>
+    </article>
+  </div>
+
+
+  <div id="competitionModal" class="modal-shell hidden" aria-hidden="true">
+    <article class="card light-card modal-card competition-modal-card">
+      <div class="notice-detail-head">
+        <h3 id="competitionModalTitle" class="password-modal-title">Inserisci Competizione</h3>
+      </div>
+      <form id="competitionForm" class="player-form password-form-stack competition-form-stack">
+        <label>Tipo competizione
+          <select id="competitionTypeInput">
+            <option value="campionato">Campionato</option>
+            <option value="coppa">Coppa</option>
+          </select>
+        </label>
+        <label>Nome competizione
+          <input id="competitionNameInput" type="text" placeholder="Es. NOI Sport Verona" required />
+        </label>
+        <label><span id="competitionYearFieldLabel">Anno campionato</span>
+          <input id="competitionYearInput" type="text" placeholder="yyyy/yyyy" required />
+        </label>
+        <fieldset class="competition-logo-choice" aria-label="Scelta logo competizione">
+          <label class="competition-logo-option">
+            <input type="radio" name="competitionLogoPreset" id="competitionLogoPresetDefault" value="default" checked />
+            <span class="competition-logo-option-preview competition-logo-option-preview-emoji" aria-hidden="true">🏆</span>
+            <span class="competition-logo-option-copy">
+              <strong>Predefinito</strong>
+            </span>
+          </label>
+          <label class="competition-logo-option">
+            <input type="radio" name="competitionLogoPreset" id="competitionLogoPresetNoiSport" value="noi-sport" />
+            <img class="competition-logo-option-preview" src="assets/noi-sport-campionato.png" alt="Logo NOI Sport Verona" />
+            <span class="competition-logo-option-copy">
+              <strong>NOI Sport Verona</strong>
+            </span>
+          </label>
+        </fieldset>
+        <label>Carica un logo personalizzato
+          <input id="competitionLogoInput" type="file" accept="image/*" />
+        </label>
+        <div class="form-actions penalty-form-actions competition-modal-actions">
+          <button type="button" id="deleteCompetitionFromModalBtn" class="btn danger hidden">🗑️ Elimina Competizione</button>
+          <button type="button" id="closeCompetitionModalBtn" class="btn ghost">Annulla</button>
+          <button type="submit" class="btn primary">Salva</button>
+        </div>
+      </form>
+    </article>
+  </div>
+
+
+  <div id="competitionTeamsModal" class="modal-shell hidden" aria-hidden="true">
+    <article class="card light-card modal-card competition-modal-card competition-teams-modal-card">
+      <div class="notice-detail-head">
+        <h3 class="password-modal-title">✏️ Squadre</h3>
+      </div>
+      <div class="competition-teams-modal-copy">Inserisci Squadre</div>
+      <div id="competitionTeamsEditorList" class="competition-team-logos-panel competition-teams-editor-list"></div>
+      <div class="form-actions competition-teams-modal-actions">
+        <button type="button" id="addCompetitionTeamRowBtn" class="btn ghost">➕ Aggiungi squadra</button>
+        <button type="button" id="closeCompetitionTeamsModalBtn" class="btn ghost">Chiudi</button>
+        <button type="button" id="saveCompetitionTeamsModalBtn" class="btn primary">💾 Salva squadre</button>
+      </div>
+    </article>
+  </div>
+
+
+  <div id="penaltyModal" class="modal-shell hidden" aria-hidden="true">
+    <article class="card light-card modal-card penalty-modal-card">
+      <div class="notice-detail-head">
+        <h3 class="password-modal-title">Penalità squadre</h3>
+      </div>
+      <p class="modal-copy">Ogni penalità vale -2 punti in classifica</p>
+      <form id="penaltyForm" class="player-form password-form-stack">
+        <label>Stagione
+          <select id="penaltySeasonSelect"></select>
+        </label>
+        <label>Squadra
+          <select id="penaltyTeamSelect"></select>
+        </label>
+        <div id="penaltyLiveBox" class="penalty-live-box" aria-live="polite"></div>
+        <div class="form-actions penalty-form-actions">
+          <button type="button" id="closePenaltyModalBtn" class="btn ghost">Annulla</button>
+          <button type="button" id="removePenaltyBtn" class="btn ghost" aria-label="Togli penalità" title="Togli penalità" disabled>➖</button>
+          <button type="submit" class="btn primary" aria-label="Aggiungi penalità" title="Aggiungi penalità">➕</button>
+        </div>
+      </form>
+    </article>
+  </div>
+
+    <script src="script.js"></script>
+  <script>
+    document.addEventListener('click', event => {
+      const instaLink = event.target.closest('[data-instagram-handle]');
+      if (!instaLink) return;
+      event.preventDefault();
+
+      const handle = instaLink.dataset.instagramHandle;
+      const webUrl = instaLink.dataset.instagramUrl || instaLink.href;
+      const userAgent = navigator.userAgent || '';
+      const isAndroid = /Android/i.test(userAgent);
+      const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
+      const isMobileLike = isAndroid || isIOS;
+      const consentMessage = isMobileLike
+        ? 'Vuoi aprire il profilo nell’app esterna di Instagram?'
+        : 'Vuoi aprire il profilo Instagram in una nuova scheda?';
+
+      if (!window.confirm(consentMessage)) return;
+
+      if (!isMobileLike) {
+        window.open(webUrl, '_blank', 'noopener');
+        return;
+      }
+
+      const appUrl = isAndroid
+        ? `intent://instagram.com/_u/${encodeURIComponent(handle)}#Intent;package=com.instagram.android;scheme=https;end`
+        : `instagram://user?username=${encodeURIComponent(handle)}`;
+
+      const fallback = window.setTimeout(() => {
+        window.location.href = webUrl;
+      }, 1200);
+
+      const clearFallback = () => window.clearTimeout(fallback);
+      window.addEventListener('pagehide', clearFallback, { once: true });
+      window.addEventListener('blur', clearFallback, { once: true });
+      window.location.href = appUrl;
+    });
+  </script>
+
+  <script>
+    // Attiva nav item corrente (top + bottom)
+    function syncNavActive() {
+      const hash = (window.location.hash || '#home');
+      document.querySelectorAll('.nav-link, .bottom-nav-item').forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === hash);
+      });
+    }
+    window.addEventListener('hashchange', syncNavActive);
+    document.addEventListener('DOMContentLoaded', syncNavActive);
+    syncNavActive();
+  </script>
+</body>
+</html>
